@@ -1,25 +1,25 @@
-const { Scehma, model } = require("mongose");
+const { Schema, model } = require("mongoose");
 const validator = require("validator");
 
 //Schema to create User model
 
-const userSchema = new Scehma(
+const userSchema = new Schema(
   {
     username: {
       type: String,
       unique: true,
       required: true,
-      trim: true,
+      // trim: true,
     },
     email: {
       type: String,
       unique: true,
       required: true,
-      validate: {
-        validator: validator.isEmail,
-        message: "{VALUE} is not a valid email",
-        isAsync: false,
-      },
+      // validate: {
+      //   validator: validator.isEmail,
+      //   message: "{VALUE} is not a valid email",
+      //   isAsync: false,
+      // },
     },
 
     //referenc the Thought model

@@ -1,4 +1,4 @@
-const { Scehma, model } = require("mongose");
+const { Schema, model } = require("mongoose");
 
 const reactionSchema = new Scehma({
   reactionId: {

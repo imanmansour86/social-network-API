@@ -1,6 +1,6 @@
-const { Scehma, model } = require("mongose");
+const { Schema, model } = require("mongoose");
 
-const thoughtSchema = new Scehma(
+const thoughtSchema = new Schema(
   {
     thoughtText: {
       type: String,
