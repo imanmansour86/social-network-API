@@ -1,4 +1,4 @@
-const User = require("../models/User");
+const {User,Thought} = require("../models");
 
 module.exports = {
   //get all users
@@ -68,17 +68,37 @@ module.exports = {
 
 
 
-  //delete user by id
-  deleteUser(req, res) {
-    User.findOneAndRemove({ _id: req.params.userId })
-      .select("-__v")
+  //delete user by id and delete his thoughts
+  // deleteUser(req, res) {
+  //   User.findOneAndRemove({ _id: req.params.userId })
+  //     .select("-__v")
+  //     .then((user) =>
+  //       !user
+  //         ? res.status(404).json({ message: "No user with that ID" })
+  //         : res.json(user)
+  //     )
+  //     .catch((err) => res.status(500).json(err));
+  // },
+  
+  //delete user by id and delete his thoughts
+    deleteUser(req, res) {
+    User.findOneAndDelete({ _id: req.params.userId })
       .then((user) =>
         !user
           ? res.status(404).json({ message: "No user with that ID" })
-          : res.json(user)
+           : Thought.deleteMany({ _id: { $in: user.thoughts } })
       )
-      .catch((err) => res.status(500).json(err));
+
+ .then(() => res.json({ message: 'User and thoughts deleted!' }))
+      .catch((err) => {
+        console.error(err)
+   res.status(500).json(err)
+      })
+      
+   
   },
+
+
 
   //update user by id
   updateUser(req, res) {

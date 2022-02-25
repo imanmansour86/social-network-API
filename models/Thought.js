@@ -11,7 +11,11 @@ const thoughtSchema = new Schema(
     },
     createdAt: {
       type: Date,
-      default: Date.now
+      default:  Date.now,
+     get () {
+       return new Date().toISOString()
+     }
+    
     },
     username: {
       type: String,

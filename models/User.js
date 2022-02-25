@@ -9,12 +9,12 @@ const userSchema = new Schema(
       type: String,
       unique: true,
       required: true,
-      // trim: true,
+      trim: true,
     },
     email: {
       type: String,
       unique: true,
-      required: true,
+      required: [true, "Email required"],
       validate: {
         validator: validator.isEmail,
         message: "{VALUE} is not a valid email",
