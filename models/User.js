@@ -15,11 +15,11 @@ const userSchema = new Schema(
       type: String,
       unique: true,
       required: true,
-      // validate: {
-      //   validator: validator.isEmail,
-      //   message: "{VALUE} is not a valid email",
-      //   isAsync: false,
-      // },
+      validate: {
+        validator: validator.isEmail,
+        message: "{VALUE} is not a valid email",
+        isAsync: false,
+      },
     },
 
     //reference the Thought model

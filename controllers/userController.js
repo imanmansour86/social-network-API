@@ -28,36 +28,36 @@ module.exports = {
   },
 
   //create a new friend
-  // createFriend(req, res) {
-  //   User.create(req.body)(
-  //     { _id: req.body.userId },
-  //     { $addToSet: { friends: User._id } },
-  //     { new: true }
-  //   )
-  //     .then((user) => res.json(user))
-  //     .catch((err) => res.status(500).json(err));
-  // },
-
-  // Create a comment
   createFriend(req, res) {
-    User.findOne(
+    User.create(req.body)(
       { _id: req.body.userId },
+      { $addToSet: { friends: User._id } },
+      { new: true }
     )
-     .select('-__v')
-      .populate('friends')
-      .then((post) =>
-        !post
-          ? res
-              .status(404)
-              .json({ message: "friend created, but no friends with this ID" })
-          : res.json({ message: "friend created" })
-      )
-      .catch((err) => {
-        console.error(err);
-      });
+      .then((user) => res.json(user))
+      .catch((err) => res.status(500).json(err));
   },
 
-  //delete user by id and associated apps
+  // Create a comment
+  // createFriend(req, res) {
+  //   User.findOneAndUpdate(
+  //     { _id: req.body.userId },
+  //     { $push: { friends: User._id } },
+  //     { new: true }
+  //   )
+  //     .then((post) =>
+  //       !post
+  //         ? res
+  //             .status(404)
+  //             .json({ message: "friend created, but no friends with this ID" })
+  //         : res.json({ message: "friend created" })
+  //     )
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // },
+
+  //delete user by id
   deleteUser(req, res) {
     User.findOneAndRemove({ _id: req.params.userId })
       .select("-__v")
