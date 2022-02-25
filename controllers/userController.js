@@ -27,18 +27,8 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 
-  //create a new friend
-  // createFriend(req, res) {
-  //   User.create(req.body)(
-  //     { _id: req.body.userId },
-  //     { $addToSet: { friends: User._id } },
-  //     { new: true }
-  //   )
-  //     .then((user) => res.json(user))
-  //     .catch((err) => res.status(500).json(err));
-  // },
 
-  // Create a new friend
+  // Create a new friend and add it to user's friends
   createFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
@@ -57,6 +47,26 @@ module.exports = {
         res.status(500).json(err)
       });
   },
+
+//Delete a friend from user's friends
+
+  deleteFriend(req, res) {
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $pull: { friends: req.params.friendId  } },
+      { runValidators: true, new: true }
+    )
+      .then((user) =>
+        !user
+          ? res
+              .status(404)
+              .json({ message: 'No user found with that ID ' })
+          : res.json(user)
+      )
+      .catch((err) => res.status(500).json(err));
+  },
+
+
 
   //delete user by id
   deleteUser(req, res) {
