@@ -1,6 +1,8 @@
 const { Schema, model } = require("mongoose");
 
-const reactionSchema = new Scehma({
+//reaction is schema only, will be used as the reaction field's subdocument schema in the Thought model.
+const reactionSchema = new Schema(
+  {
   reactionId: {
     type: Schema.Types.ObjectId,
     default: () => new Types.ObjectId(),
@@ -23,8 +25,15 @@ const reactionSchema = new Scehma({
       return date.toLocaleString();
     },
   },
-});
 
-const Reaction = model("reaction", reactionSchema);
+},
+  {
+    toJSON: {
+      getters: true,
+    },
+    id: false,
+  }
+);
 
-module.exports = Reaction;
+
+module.exports = reactionSchema;

@@ -22,7 +22,7 @@ const userSchema = new Schema(
       // },
     },
 
-    //referenc the Thought model
+    //reference the Thought model
     thoughts: [
       {
         type: Schema.Types.ObjectId,
