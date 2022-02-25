@@ -57,7 +57,7 @@ module.exports = {
       });
   },
 
-  //delete user by id
+  //delete user by id and associated apps
   deleteUser(req, res) {
     User.findOneAndRemove({ _id: req.params.userId })
       .select("-__v")

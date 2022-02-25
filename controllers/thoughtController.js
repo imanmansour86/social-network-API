@@ -23,24 +23,58 @@ module.exports = {
   },
 
 
-  //create a new thought
+
+ // Create a new thought and push thoughId to the user 
   createThought(req, res) {
     Thought.create(req.body)
-      .then((thought) => res.json(thought))
-      .catch((err) => res.status(500).json(err));
-  },
-
-  //delete thought by id and remove from user
-  deleteThought(req, res) {
-    Thought.findOneAndRemove({ _id: req.params.thoughtId })
-      .select("-__v")
+      .then((thought) => {
+        return User.findOneAndUpdate(
+          { _id: req.body.userId },
+          { $push: { thoughts: thought._id } },
+          { new: true }
+        );
+      })
       .then((thought) =>
         !thought
-          ? res.status(404).json({ message: "No thought with that ID" })
-          : res.json(thought)
+          ? res
+              .status(404)
+              .json({ message: 'thought created, but no user with this ID' })
+          : res.json({message:'new thought created!'})
       )
-      .catch((err) => res.status(500).json(err));
+      .catch((err) => {
+        console.error(err);
+      });
   },
+
+
+
+
+    //delete thought by id and remove from user 
+  deleteThought(req, res) {
+    Thought.findOneAndRemove({ _id: req.params.thoughtId })
+      .then((thought) =>
+        !thought
+          ? res.status(404).json({ message: 'No such thought exists' })
+          : User.findOneAndUpdate(
+              { thoughts: req.params.thoughtId },
+              { $pull: { thoughts: req.params.thoughtId } },
+              { new: true }
+            )
+      )
+      .then((user) =>
+        !user
+          ? res.status(404).json({
+              message: 'thought deleted, but no user found'
+            })
+          : res.json({ message: 'thought successfully deleted' })
+      )
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  },
+
+
 
  //update thought by id
   updateThought(req, res) {
