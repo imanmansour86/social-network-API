@@ -1,4 +1,4 @@
-const {User,Thought} = require("../models");
+const { User, Thought } = require("../models");
 
 module.exports = {
   //get all users
@@ -27,13 +27,12 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 
-
   // Create a new friend and add it to user's friends
   createFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
       { $addToSet: { friends: req.params.friendId } },
-       { runValidators: true, new: true }
+      { runValidators: true, new: true }
     )
       .then((user) =>
         !user
@@ -44,61 +43,41 @@ module.exports = {
       )
       .catch((err) => {
         console.error(err);
-        res.status(500).json(err)
+        res.status(500).json(err);
       });
   },
 
-//Delete a friend from user's friends
+  //Delete a friend from user's friends
 
   deleteFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $pull: { friends: req.params.friendId  } },
+      { $pull: { friends: req.params.friendId } },
       { runValidators: true, new: true }
     )
       .then((user) =>
         !user
-          ? res
-              .status(404)
-              .json({ message: 'No user found with that ID ' })
+          ? res.status(404).json({ message: "No user found with that ID " })
           : res.json(user)
       )
       .catch((err) => res.status(500).json(err));
   },
 
-
-
   //delete user by id and delete his thoughts
-  // deleteUser(req, res) {
-  //   User.findOneAndRemove({ _id: req.params.userId })
-  //     .select("-__v")
-  //     .then((user) =>
-  //       !user
-  //         ? res.status(404).json({ message: "No user with that ID" })
-  //         : res.json(user)
-  //     )
-  //     .catch((err) => res.status(500).json(err));
-  // },
-  
-  //delete user by id and delete his thoughts
-    deleteUser(req, res) {
+  deleteUser(req, res) {
     User.findOneAndDelete({ _id: req.params.userId })
       .then((user) =>
         !user
           ? res.status(404).json({ message: "No user with that ID" })
-           : Thought.deleteMany({ _id: { $in: user.thoughts } })
+          : Thought.deleteMany({ _id: { $in: user.thoughts } })
       )
 
- .then(() => res.json({ message: 'User and thoughts deleted!' }))
+      .then(() => res.json({ message: "User and thoughts deleted!" }))
       .catch((err) => {
-        console.error(err)
-   res.status(500).json(err)
-      })
-      
-   
+        console.error(err);
+        res.status(500).json(err);
+      });
   },
-
-
 
   //update user by id
   updateUser(req, res) {

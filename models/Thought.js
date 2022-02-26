@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-const reactionsSchema = require('./Reaction');
+const reactionsSchema = require("./Reaction");
 
 const thoughtSchema = new Schema(
   {
@@ -11,11 +11,10 @@ const thoughtSchema = new Schema(
     },
     createdAt: {
       type: Date,
-      default:  Date.now,
-     get () {
-       return new Date().toISOString()
-     }
-    
+      default: Date.now,
+      get() {
+        return new Date().toISOString();
+      },
     },
     username: {
       type: String,
@@ -26,8 +25,6 @@ const thoughtSchema = new Schema(
   {
     toJSON: {
       virtuals: true,
- 
-      
     },
     id: false, //don't return the id of the elements
   }

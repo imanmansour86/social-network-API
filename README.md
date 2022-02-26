@@ -10,6 +10,7 @@
 
 - [Social-network-API](#social-network-api)
   - [Table of Contents](#table-of-contents)
+  - [Demo Link](#demo-link)
   - [Description](#description)
   - [Installation](#installation)
   - [Modals](#modals)
@@ -18,9 +19,13 @@
   - [Author](#author)
   - [License](#license)
 
+## Demo Link
+
+- [Demo]()
+
 ## Description
 
-This API is built for a social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list. Builts with Express.js for routing, MongoDB database, and the Mongoose ODM.
+This API is built for a social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list. Built with Express.js for routing, MongoDB database, and the Mongoose ODM
 
 ## Installation
 
