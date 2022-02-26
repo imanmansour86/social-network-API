@@ -4,11 +4,11 @@
 ![repo size](https://img.shields.io/github/repo-size/imanmansour86/social-network-API)
 ![last commit](https://img.shields.io/github/last-commit/imanmansour86/social-network-API)
 
-# Social-network-API
+# Social Network API
 
 ## Table of Contents
 
-- [Social-network-API](#social-network-api)
+- [Social Network API](#social-network-api)
   - [Table of Contents](#table-of-contents)
   - [Demo Link](#demo-link)
   - [Description](#description)
