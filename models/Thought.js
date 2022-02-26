@@ -12,8 +12,16 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
-      get() {
-        return new Date().toISOString();
+      get: (date) => {
+        return date.toLocaleString("en-US", {
+          weekday: "short", // long, short, narrow
+          day: "numeric", // numeric, 2-digit
+          year: "numeric", // numeric, 2-digit
+          month: "long", // numeric, 2-digit, long, short, narrow
+          hour: "numeric", // numeric, 2-digit
+          minute: "numeric", // numeric, 2-digit
+          second: "numeric", // numeric, 2-digit
+        });
       },
     },
     username: {
@@ -25,6 +33,7 @@ const thoughtSchema = new Schema(
   {
     toJSON: {
       virtuals: true,
+      getters: true,
     },
     id: false, //don't return the id of the elements
   }
